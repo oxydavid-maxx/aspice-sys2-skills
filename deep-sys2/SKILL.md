@@ -118,6 +118,33 @@ See `agents/` directory for detailed agent definitions. **11 agents total** (10 
 
 ---
 
+## MANDATORY: Sub-Agent Prompt Compliance Rule
+
+**CRITICAL — Read before launching any sub-agent.**
+
+When orchestrating this pipeline via the Agent tool, you MUST follow these steps for every sub-agent launch:
+
+1. **Read the agent definition file first** — Use the Read tool to load the full contents of the relevant agent `.md` file from the `agents/` directory (e.g., `agents/aspice_assessor_agent.md`) **before writing the sub-agent prompt**.
+
+2. **Include full file contents verbatim** — Place the complete agent definition file contents at the **top** of the sub-agent prompt as the agent's role definition. Do NOT summarize, paraphrase, condense, or simplify.
+
+3. **Sub-agent prompt structure — required format:**
+   ```
+   [Full verbatim contents of agents/<agent_name>.md]
+
+   ---
+   ## Task Context
+   [Task-specific data, inputs, and instructions for this invocation]
+   ```
+
+4. **No custom role descriptions** — Writing a custom role description (e.g., "You are an ASPICE assessor who rates BP compliance") silently drops all mandatory requirements embedded in the definition file. This is forbidden.
+
+**Why this rule exists:** Agent definition files contain mandatory output formats, NPLF rating criteria, BP evidence checklists, and non-negotiable ASPICE v4.0 compliance rules. Summarizing these files causes systematic spec non-compliance that is invisible until formal assessment.
+
+**Failure mode to avoid:** Do NOT write sub-agent prompts from memory or from a high-level summary of the agent's purpose. Always **Read → Copy verbatim → Append context**.
+
+---
+
 ## Orchestration Workflow — Full / Analyze Mode
 
 ```
