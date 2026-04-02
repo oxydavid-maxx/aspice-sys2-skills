@@ -83,4 +83,8 @@ CC-BY-NC 4.0
 
 ## Author
 
-Cheng-I Wu
+Kuangyu
+
+## Acknowledgments
+
+Original ASPICE SYS.2 skill framework referenced from Cheng-I Wu's academic research skills architecture (CC-BY-NC 4.0).
