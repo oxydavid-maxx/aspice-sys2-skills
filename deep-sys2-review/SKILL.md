@@ -118,9 +118,10 @@ When orchestrating this pipeline via the Agent tool, you MUST follow these steps
 
 4. **No custom role descriptions** — Writing a custom role description (e.g., "You are a BP compliance reviewer who rates each BP as NPLF") silently drops all mandatory requirements embedded in the definition file. This is forbidden.
 
-5. **Diagram tools in output** — Every section of produced review reports must contain diagrams. Use the correct tool for each type:
+5. **Diagram tools in output** — Every section of produced review reports must contain diagrams. Use the correct tool for each layer:
    - **Mermaid** (` ```mermaid `) — architecture, flowcharts, state machines, sequence diagrams, class diagrams, mind maps, timelines, process flows
-   - **WaveDrom** (` ```wavedrom `) — ALL timing and waveform diagrams: signal timing, protocol handshakes with clock edges, register write sequences
+   - **WaveDrom** (` ```wavedrom `) — **logic/digital-level** timing only: ideal clock/data/enable signals, interrupt events, register write sequences (renders ideal square waves — no slopes)
+   - **Mermaid `xychart-beta`** — **physical/analog** waveforms: signal voltage rise/fall with slew rate, current ramps, response curves, overshoot approximations
    - **Never use ASCII art for waveforms** — WaveDrom renders natively in VS Code markdown preview (`bmpenuelas.markdown-preview-wavedrom`)
 
 **Why this rule exists:** Agent definition files contain mandatory confidence scoring formulas (0–100 per BP), NPLF decision criteria, evidence citation requirements, and Mermaid scorecard templates. Summarizing these files causes systematic spec non-compliance that is invisible until formal CL1 assessment.
