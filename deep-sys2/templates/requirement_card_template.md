@@ -32,19 +32,22 @@ The [system/component] shall [active verb] [object] [quantified condition] [unit
 
 ---
 
-#### Verification
+#### Verification Criteria (BP5 — 5-Field Format)
+
+Source format: gateway_present_20260402_ASPICE.md Slide 12
 
 | Field | Content |
 |-------|---------|
-| **Verification Method** | **T** / A / I / D |
-| **Verification Criteria** | [Specific executable procedure. Reference: standard/clause if applicable] |
-| **Acceptance Threshold** | [Quantitative value + units + condition] — Source: [citation]<sup>[[N]](#fn-N)</sup> |
-| **Test Environment** | [Equipment, temperature, voltage, signal conditions] |
+| **Early Idea (Method)** | [T=Test / A=Analysis / I=Inspection / D=Demo — describe testing concept] |
+| **Pre-condition** | [What must be set up/enabled/configured before the test can run] |
+| **Input** | [What is sent, applied, or triggered to stimulate the system] |
+| **Range** | [Valid values + boundary/edge cases + negative/invalid cases] |
+| **Expected result** | [Measurable outcome — value + units + pass condition] — Source: <sup>[[N]](#fn-N)</sup> |
 
-> **Threshold Source Rule (MANDATORY):** Every numeric value in the Acceptance Threshold MUST have a clickable citation<sup>[[N]](#fn-N)</sup> to its source — one of:
-> - **Customer requirement**: `<sup>[[PR3]](#fn-PR3)</sup>` → Leapmotor meeting transcript, customer spec
-> - **Standard mandate**: `<sup>[[1]](#fn-1)</sup>` → ISO, AEC-Q100, CISPR, IEEE standard + clause
-> - **Engineering analysis**: `<sup>[[PR-R]](#fn-PR-R)</sup>` → Research document, simulation, calculation with methodology cited
+> **Threshold Source Rule (MANDATORY):** Every numeric value in Expected result MUST have a clickable citation<sup>[[N]](#fn-N)</sup> to its source — one of:
+> - **Customer requirement**: → Leapmotor meeting transcript, customer spec, StRS document
+> - **Standard mandate**: → ISO, AEC-Q100, CISPR, IEEE standard + clause
+> - **Engineering analysis**: → Simulation report, calculation with methodology cited
 > - **Design target**: Must be explicitly labeled "Design target — to be confirmed during HW characterization"
 >
 > A bare number without a citation is **not acceptable** — the assessor will ask "where does this number come from?" and the requirement will fail the Correct characteristic (IEEE 29148 §5.2.8).
@@ -135,14 +138,15 @@ The system shall support CAN 2.0B communication at a nominal bit rate of 500 kbp
 
 > **IEEE 29148 Checklist:** ✅ All 9 characteristics pass
 
-#### Verification
+#### Verification Criteria (BP5)
 
 | Field | Content |
 |-------|---------|
-| **Verification Method** | **T** (Test) |
-| **Verification Criteria** | Apply Vector CANalyzer to CAN H/L pins; measure bit rate over 10,000 consecutive frames; test at Vcc=3.0V, 3.3V, 3.6V; test at -40°C, +25°C, +105°C (9 conditions total) |
-| **Acceptance Threshold** | Bit rate = 500,000 bps ± 25 bps (50 ppm); BER ≤ 1×10⁻⁶; 0 error frames per 10,000-frame run |
-| **Test Environment** | CAN analyzer (Vector CANalyzer or equiv.); regulated supply; temperature chamber |
+| **Early Idea (Method)** | T (Test) — Measure bit rate on CAN H/L pins using a CAN protocol analyzer (e.g., Vector CANalyzer). |
+| **Pre-condition** | Device powered at nominal Vcc (3.3V); CAN transceiver enabled; CAN controller configured for 500 kbps mode; temperature chamber stabilized. |
+| **Input** | Transmit 10,000 consecutive CAN 2.0B frames with known data pattern. |
+| **Range** | Voltage: 3.0V, 3.3V, 3.6V. Temperature: -40°C, +25°C, +105°C (9 conditions total). Negative: invalid baud rate register — expect no transmission. |
+| **Expected result** | Bit rate = 500,000 bps ± 25 bps (50 ppm); BER ≤ 1×10⁻⁶; 0 error frames per 10,000-frame run per condition. Source: StRS-100. |
 
 #### Diagram
 

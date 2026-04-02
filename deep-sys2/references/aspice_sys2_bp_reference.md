@@ -98,23 +98,29 @@ When successfully implemented, this process produces the following outcomes:
 
 **Evidence required per requirement:**
 - Verification method: Test (T), Analysis (A), Inspection (I), or Demonstration (D)
-- Qualitative criteria: description of what is measured and how
-- Quantitative threshold: measurable pass/fail boundary with units
+- Qualitative criteria: pre-condition, input stimulus, coverage range
+- Quantitative threshold: measurable pass/fail boundary with units and source citation
 - Reference to test standard or method (e.g., AEC-Q100, IEC 61000, ISO 16750)
 
-**Format (mandatory):**
+**Format (mandatory — 5-field):**
+Source: Realtek ASPICE training (gateway_present_20260402_ASPICE.md Slide 12)
 ```
-Method:    T / A / I / D
-Criteria:  [Description of what is measured, how, and under what conditions]
-Threshold: [Numeric pass/fail value with units]
+Early Idea (Method): [T/A/I/D — testing approach concept]
+Pre-condition:       [System state/configuration required before test]
+Input:               [Stimulus applied to the system]
+Range:               [Valid cases + edge cases + negative/invalid cases]
+Expected result:     [Quantitative outcome — value + units + pass condition] — Source: [citation]
 ```
 
 **Example — Temperature Requirement:**
 ```
-Method:    T (Test)
-Criteria:  Power-on functional verification after 1000h exposure at -40°C and +105°C 
-           per AEC-Q100 Grade 2 HTOL/LTOL test sequence, 3 sample units minimum
-Threshold: 0 functional failures; all parametric values within ±10% of nominal
+Early Idea (Method): T (Test) — AEC-Q100 Grade 2 HTOL/LTOL stress test
+Pre-condition:       3 sample units; baseline characterization at 25°C complete; 
+                     test boards prepared per AEC-Q100 Rev-H test setup
+Input:               HTOL: 1000h at +105°C, Vcc_max; LTOL: 1000h at -40°C
+Range:               -40°C, +25°C, +85°C, +105°C. Negative: outside range → document behavior
+Expected result:     0 functional failures; all parametric values within ±10% of nominal 
+                     at start/mid/end checkpoints — Source: AEC-Q100 Rev-H Table 1
 ```
 
 **Common gaps:**

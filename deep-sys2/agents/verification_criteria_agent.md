@@ -49,29 +49,34 @@ Has quantitative threshold?
 ```
 
 ### Step 3: Generate Criteria Card
-For each requirement, produce:
+For each requirement, produce the 5-field VC format (per Realtek ASPICE training — gateway_present_20260402_ASPICE.md Slide 12):
+
 ```
 REQUIREMENT: [ID] [Title]
 ---
-Verification Method:   [T / A / I / D]
-Verification Criteria: [Procedure description — specific enough to execute]
-                       [Reference standard if applicable]
-Acceptance Threshold:  [Quantitative pass/fail: value + units + condition] — Source: [citation]
-Test Environment:      [Equipment, conditions, setup]
+Early Idea (Method): [Testing approach — T/A/I/D; describe the measurement concept]
+Pre-condition:       [What must be set up/enabled before the test can run]
+Input:               [What is sent, applied, or triggered to stimulate the system]
+Range:               [Coverage scope: valid cases + edge/boundary cases + negative/invalid cases]
+Expected result:     [Measurable outcome — what the system must produce] — Source: [citation]
 ```
+
+**Why 5-field?** Pre-condition + Input + Range separate the test setup from stimulus from coverage — three aspects that a 3-field format collapses into an unstructured blob. This maps directly to executable test case format.
 
 ### Step 4: Quality Gate Check
 **BLOCK** (cannot accept BP5 record):
-- Method = TBD or blank
-- Threshold = "Pass" / "Meet requirement" / blank (not quantitative)
-- Criteria is circular (references the requirement)
-- Criteria cannot be executed without undefined equipment/data
-- **Threshold has no source citation** — bare number without traceability to customer requirement, standard, or engineering analysis
+- Early Idea (Method) = TBD or blank
+- Pre-condition = blank or "N/A" without justification — every test has a setup
+- Input = blank or "as required" — must specify what stimulates the system
+- Range = blank — must cover at least valid range + one negative case
+- Expected result is not quantitative ("Pass", "Meet requirement", circular reference)
+- **Expected result has no source citation** — bare number without traceability to customer requirement, standard, or engineering analysis
 
 **WARN** (flag for review):
-- Threshold is a range estimate, not from a standard (ask for reference)
-- Multiple methods needed (I + T) — acceptable, document both
-- Threshold sourced from "engineering judgment" without documented analysis — acceptable for Draft, must be replaced with measured/calculated value before baseline
+- Range covers valid cases only — no negative tests specified
+- Expected result is a range estimate, not from a standard (ask for reference)
+- Multiple methods needed (I + T) — acceptable, document both in Early Idea field
+- Expected result sourced from "engineering judgment" without documented analysis — acceptable for Draft, must be replaced with measured/calculated value before baseline
 
 ### Threshold Source Citation Rule (MANDATORY)
 Every numeric value in the Acceptance Threshold MUST cite its source using `<sup>[[N]](#fn-N)</sup>`:
@@ -132,20 +137,22 @@ flowchart TD
 
 | Field | Content |
 |-------|---------|
-| **Verification Method** | T (Test) |
-| **Verification Criteria** | [Specific procedure] |
-| **Acceptance Threshold** | [Quantitative value + units] |
-| **Test Environment** | [Equipment and conditions] |
-| **Reference Standard** | [Standard name and clause] |
+| **Early Idea (Method)** | [T/A/I/D — testing approach concept] |
+| **Pre-condition** | [System state / test setup required before execution] |
+| **Input** | [Stimulus applied to the system] |
+| **Range** | [Valid cases + edge cases + negative/invalid cases] |
+| **Expected result** | [Quantitative outcome — value + units + condition] — Source: [citation] |
 | **Status** | ✅ Complete / ⚠️ Partial / ❌ Blocked |
 
 **Verification Flow:**
 ```mermaid
 flowchart LR
-    req["SysReq-001\n[Title]"] -->|"T: Test"| proc["[Test Procedure]"]
-    proc --> thresh["Threshold:\n[Value + Units]"]
-    thresh -->|"Pass"| ok["✅ Verified"]
-    thresh -->|"Fail"| nok["❌ Rework"]
+    req["SysReq-001\n[Title]"] --> pre["Pre-condition\n[Setup]"]
+    pre --> input["Input\n[Stimulus]"]
+    input --> range["Range\n[Coverage]"]
+    range --> result{"Expected result\n[Value + Units]"}
+    result -->|"Pass"| ok["✅ Verified"]
+    result -->|"Fail"| nok["❌ Rework"]
 ```
 
 ---

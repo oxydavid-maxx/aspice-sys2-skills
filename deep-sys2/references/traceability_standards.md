@@ -112,6 +112,34 @@ StRS change detected
 
 ---
 
+## Cross-Process Traceability (V-Model Neighbors)
+
+### HWE.1 traces to BOTH SYS.2 and SYS.3
+
+Per the ASPICE Traceability and Consistency Concept diagram (Pocket Guide):
+
+```
+Stakeholder requirements
+    ↕ SYS.2 BP5
+SYS requirements          ← HWE.1 BP5 traces HERE (SYS.2)
+    ↕ SYS.3 BP4
+SYS architecture          ← HWE.1 BP5 traces HERE (SYS.3)
+    ↕ HWE.1 BP5
+HW requirements
+    ↕ HWE.2 BP5
+HW design
+```
+
+**HWE.1 BP5 requires bidirectional traceability to:**
+1. **SYS.2 SYS requirements** — every HW requirement must derive from a system requirement
+2. **SYS.3 SYS architecture** — every HW requirement must be traceable to the architectural decision that allocated it to hardware
+
+**Common mistake:** Tracing HWE.1 only to SYS.3 and missing the SYS.2 link — this is a BP6 violation at the HWE.1 level.
+
+**Symmetric rule applies to SW:** SWE.1 BP5 similarly traces to both SYS.2 (SYS requirements) and SYS.3 (SYS architecture) per the same diagram.
+
+---
+
 ## What Assessors Actually Check (iNTACS Guidance)
 
 ### CL1 Assessment Checklist:
