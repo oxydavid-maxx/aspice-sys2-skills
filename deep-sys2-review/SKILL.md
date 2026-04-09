@@ -1,5 +1,5 @@
 ---
-name: deep-sys2-review
+name: skill-deep-sys2-review
 description: Use when reviewing, critiquing, or scoring an ASPICE SYS.2 System Requirements Specification — full multi-assessor review, confidence scoring, quick CL1 check, re-review after revisions, guided review dialogue, or fast flaw detection. Triggers on: review SyRS, critique requirements, confidence score, ASPICE assessment, rate requirements, point out flaws, BP compliance check, requirement quality audit, re-review, revision verification.
 metadata:
   version: "1.0"

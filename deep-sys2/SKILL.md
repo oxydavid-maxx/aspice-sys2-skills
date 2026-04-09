@@ -1,5 +1,5 @@
 ---
-name: deep-sys2
+name: skill-deep-sys2
 description: Use when working on ASPICE SYS.2 System Requirements Analysis — analyzing existing SyRS documents, creating requirements from scratch, generating verification criteria, fixing requirement quality, running gap analysis against ASPICE v4.0 BPs, or getting guided through SYS.2 thinking. Triggers on: SYS.2, system requirements, SyRS, requirement quality, verification criteria, traceability matrix, ASPICE compliance, shall statement, acceptance criteria, requirement gap, BP5, bidirectional traceability.
 metadata:
   version: "1.0"
